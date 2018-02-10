@@ -18,7 +18,7 @@ defmodule CadeauPlatform.Inventory.Product do
   @doc false
   def changeset(%Product{} = product, attrs) do
     product
-    |> cast(attrs, [])
-    |> validate_required([])
+    |> cast(attrs, [:name, :price_cents, :description, :imported, :image_link, :category_id])
+    |> validate_required([:name, :price_cents, :description, :image_link])
   end
 end
