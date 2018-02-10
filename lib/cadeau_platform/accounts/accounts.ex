@@ -101,4 +101,18 @@ defmodule CadeauPlatform.Accounts do
   def change_user(%User{} = user) do
     User.changeset(user, %{})
   end
+
+  def authenticate_user(params) do
+    email = params["email"]
+    password = params["password"]
+
+    user = Repo.get_by(User, email: email)
+
+    case user do
+      nil ->
+        false
+      _ ->
+        { Comeonin.Bcrypt.checkpw(password, user.password_digest), user }
+    end
+  end
 end
