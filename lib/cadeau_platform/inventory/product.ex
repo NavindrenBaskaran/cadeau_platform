@@ -7,7 +7,7 @@ defmodule CadeauPlatform.Inventory.Product do
   schema "products" do
     field :name, :string
     field :price_cents, Money.Ecto.Type
-    field :description, :text
+    field :description, :string
     field :imported, :boolean, default: false
 
     timestamps()
