@@ -1,0 +1,29 @@
+<%= form_for @changeset, user_path(@conn, :create), fn f -> %>
+
+  <label>
+    Name: <%= text_input f, :name %>
+  </label>
+
+  <br />
+
+  <label>
+    Email: <%= text_input f, :email %>
+  </label>
+
+    <br />
+
+  <label>
+    Password: <%= password_input f, :password %>
+  </label>
+
+  <br />
+
+  <label>
+    Confirm Password: <%= password_input f, :password_confirmation %>
+  </label>
+
+  <br />
+
+  <%= submit "Sign Up" %>
+
+<% end %>
