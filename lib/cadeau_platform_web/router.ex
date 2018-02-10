@@ -7,6 +7,7 @@ defmodule CadeauPlatformWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug CadeauPlatform.Plugs.CurrentUser
   end
 
   pipeline :api do
@@ -18,6 +19,9 @@ defmodule CadeauPlatformWeb.Router do
 
     get "/", PageController, :index
     resources "/users", UserController
+    get "/login", SessionController , :new
+    post "/login", SessionController , :create
+    delete "/logout", SessionController , :delete
   end
 
   # Other scopes may use custom stacks.

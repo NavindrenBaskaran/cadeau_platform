@@ -1,29 +1,30 @@
 <%= form_for @changeset, user_path(@conn, :create), fn f -> %>
+  <div class="form-group">
+    <label>
+      Name: <%= text_input f, :name , class: "form-control"%>
+    </label>
+  </div>
 
-  <label>
-    Name: <%= text_input f, :name %>
-  </label>
+  <div class="form-group">
+    <label>
+      Email: <%= text_input f, :email, class: "form-control" %>
+    </label>
+  </div>
 
-  <br />
+  <div class="form-group">
+    <label>
+      Password: <%= password_input f, :password, class: "form-control" %>
+    </label>
 
-  <label>
-    Email: <%= text_input f, :email %>
-  </label>
+  </div>
 
-    <br />
+  <div class="form-group">
+    <label>
+      Confirm Password: <%= password_input f, :password_confirmation, class: "form-control" %>
+    </label>
 
-  <label>
-    Password: <%= password_input f, :password %>
-  </label>
+  </div>
 
-  <br />
-
-  <label>
-    Confirm Password: <%= password_input f, :password_confirmation %>
-  </label>
-
-  <br />
-
-  <%= submit "Sign Up" %>
+  <%= submit "Sign Up",  class: "btn btn-primary" %>
 
 <% end %>
