@@ -9,6 +9,7 @@ defmodule CadeauPlatform.Inventory.Product do
     field :price_cents, Money.Ecto.Type
     field :description, :string
     field :imported, :boolean, default: false
+    field :image_link, :string
 
     timestamps()
   end
