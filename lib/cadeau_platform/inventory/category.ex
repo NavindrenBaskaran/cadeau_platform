@@ -4,7 +4,7 @@ defmodule CadeauPlatform.Inventory.Category do
   alias CadeauPlatform.Inventory.{Category, Product}
   import EctoEnum
 
-  defenum CategoryTypeEnum, book: 0, medical: 1, food: 2, wear: 3
+  defenum CategoryTypeEnum, book: 0, health: 1, edible: 2, wear: 3
 
   schema "categories" do
     field :name, :string
@@ -16,7 +16,7 @@ defmodule CadeauPlatform.Inventory.Category do
   @doc false
   def changeset(%Category{} = category, attrs) do
     category
-    |> cast(attrs, [])
-    |> validate_required([])
+    |> Ecto.Changeset.cast(attrs, [:name, :type])
+    |> validate_required([:name, :type])
   end
 end
