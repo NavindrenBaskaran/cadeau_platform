@@ -24,11 +24,11 @@ config :logger, :console,
 
 config :money,
   default_currency: :MYR,
-  separator: ".",
-  delimeter: ",",
-  symbol: false,
+  separator: ",",
+  delimeter: ".",
+  symbol: true,
   symbol_on_right: false,
-  symbol_space: false
+  symbol_space: true
 
 
 # Import environment specific config. This must remain at the bottom
