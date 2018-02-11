@@ -12,6 +12,24 @@ function addToShoppingCart(product_id){
   }else{
     document.cookie = "items" + "=" + ( product_id || "")  + expires + "; path=/";
   }
+  updateselectedItemsCount()
+}
+
+function updateselectedItemsCount(){
+  var $itemCount = $("#itemCount");
+  $itemCount.html(selectedItems().length)
+
+}
+
+function selectedItems(){
+  var $itemCount = $("#itemCount");
+  var shopping_cart_cookie = getShoppingCartCookies();
+  if (shopping_cart_cookie){
+    var items = shopping_cart_cookie.split("=")[1].split(",")
+    return Array.from(new Set(items))
+  }else{
+    []
+  }
 }
 
 function getShoppingCartCookies(){
