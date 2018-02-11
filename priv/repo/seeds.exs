@@ -98,7 +98,7 @@ Repo.insert! %Product{
   price_cents: 10000,
   description: "Basic Striped Polo Shirt",
   imported: true,
-  image_link: "https://static.zara.net/photos///2018/V/0/2/p/9240/403/401/2/w/1920/9240403401_2_1_1.jpg",
+  image_link: "https://imagena1.lacoste.com/dw/image/v2/AAUP_PRD/on/demandware.static/-/Sites-master/default/dw1cee1729/PH2029_HHW_24.jpg?sw=460&sh=460&sm=fit",
   category_id: 4
 }
 
@@ -107,6 +107,6 @@ Repo.insert! %Product{
   price_cents: 15000,
   description: "Basic Hoody",
   imported: false,
-  image_link: "https://static.zara.net/photos///2018/V/0/2/p/8689/407/600/2/w/1920/8689407600_2_5_1.jpg",
+  image_link: "https://gloimg.zafcdn.com/zaful/pdm-product-pic/Clothing/2017/08/16/thumb-img/1505673026236652447.jpg",
   category_id: 4
 }
