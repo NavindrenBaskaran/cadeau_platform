@@ -16,7 +16,7 @@
 
   </head>
 
-  <body>
+  <body  onload="updateselectedItemsCount()">
     <div class="container">
       <%= if !!(get_flash(@conn, :info)) do %>
         <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
@@ -31,6 +31,8 @@
       <% else %>
         <%= link "Login", to: session_path(@conn, :create) %>
       <% end %>
+
+      <p> Shopping Chart  <span id="itemCount"> </span></p>
 
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
