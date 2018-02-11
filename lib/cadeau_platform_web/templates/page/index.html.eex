@@ -1,1 +1,16 @@
 <h2>Products</h2>
+
+<%= for item <- @items do %>
+    <div class="w3-card-4  w3-center w3-margin-bottom">
+      <img src=<%= item.image_link %> >
+      <div class="w3-container w3-center">
+        <label class="align-left" style="float:left;"> Description </label>
+        <p style="clear:both;text-align:left;"><%= item.description %></p>
+        <label class="align-left" style="float:left;"> Imported </label>
+        <p style="clear:both;text-align:left;"><%= imported_product?(item) %> </p>
+        <label class="align-left" style="float:left;"> Price </label>
+        <p style="clear:both;text-align:left;"> <%= item.price_cents %> </p>
+      </div>
+      <button class="w3-button w3-block w3-blue" id= <%= item.id %> >Add To Cart</button>
+    </div>
+<% end %>

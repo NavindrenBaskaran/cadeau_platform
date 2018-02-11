@@ -1,10 +1,13 @@
 defmodule CadeauPlatformWeb.PageController do
   use CadeauPlatformWeb, :controller
 
-  # alias CadeauPlatform.Items
-  # alias CadeauPlatform.Items.Page
+  alias CadeauPlatform.Inventory
+  alias CadeauPlatform.Items.Product
 
   def index(conn, _params) do
-    render(conn, "index.html", conn.assigns)
+    items = Inventory.list_products
+    conn
+      |>assign(:items, items)
+      |>render("index.html", conn.assigns)
   end
 end
