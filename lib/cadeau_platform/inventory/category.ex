@@ -1,10 +1,11 @@
+import EctoEnum
+defenum CategoryTypeEnum, book: 0, health: 1, edible: 2, wear: 3
+
 defmodule CadeauPlatform.Inventory.Category do
   use Ecto.Schema
   import Ecto.Changeset
   alias CadeauPlatform.Inventory.{Category, Product}
-  import EctoEnum
 
-  defenum CategoryTypeEnum, book: 0, health: 1, edible: 2, wear: 3
 
   schema "categories" do
     field :name, :string
