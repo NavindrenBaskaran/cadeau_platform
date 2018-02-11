@@ -11,6 +11,6 @@
         <label class="align-left" style="float:left;"> Price </label>
         <p style="clear:both;text-align:left;"> <%= item.price_cents %> </p>
       </div>
-      <button class="w3-button w3-block w3-blue" id= <%= item.id %> >Add To Cart</button>
+      <button class="w3-button w3-block w3-blue product" onclick="addToShoppingCart(this.id)" id= <%= item.id %>>Add To Cart</button>
     </div>
 <% end %>
