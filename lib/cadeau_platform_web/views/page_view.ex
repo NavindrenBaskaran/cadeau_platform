@@ -4,9 +4,9 @@ defmodule CadeauPlatformWeb.PageView do
   def imported_product?(item) do
     case item.imported do
       true
-        -> "Foreign Product"
+        -> "* Imported Product"
       false
-        -> "Local Product"
+        -> ""
     end
   end
 end
