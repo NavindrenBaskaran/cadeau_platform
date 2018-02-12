@@ -1,5 +1,12 @@
 # CadeauPlatform
 
+Dependencies
+ * Elixir 1.4 or later
+ * Erlang 18 or later
+ * Phoenix ~> v1.3.0
+ * NodeJS >= 5.0.0
+ * PostgreSQL
+
 To start your Phoenix server:
 
   * `cd cadeau_platform`
