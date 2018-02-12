@@ -16,3 +16,5 @@
   <%= submit "Log In", class: "btn btn-primary" %>
 
 <% end %>
+
+<%= link "Don't have an account Sign Up Here", to: user_path(@conn, :new) %>
