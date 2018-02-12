@@ -2,8 +2,10 @@
 
 To start your Phoenix server:
 
+  * `cd cadeau_platform`
   * Install dependencies with `mix deps.get`
   * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
+  * Run seed to populate test data `mix run priv/repo/seeds.ex`
   * Install Node.js dependencies with `cd assets && npm install`
   * Start Phoenix endpoint with `mix phx.server`
 
