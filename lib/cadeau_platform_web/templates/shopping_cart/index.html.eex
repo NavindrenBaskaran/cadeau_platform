@@ -1,0 +1,6 @@
+<%= Enum.map(@selected_products, fn(selected_product) -> %>
+  <div class="w3-margin-top">
+    <p> <%= selected_product.name %> <p>
+    <p> <%= selected_product.price_cents %> <p>
+  </div>
+<% end) %>

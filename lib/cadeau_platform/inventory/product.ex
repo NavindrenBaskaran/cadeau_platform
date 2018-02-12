@@ -1,7 +1,7 @@
 defmodule CadeauPlatform.Inventory.Product do
   use Ecto.Schema
   import Ecto.Changeset
-  alias CadeauPlatform.Inventory.{Product, Category}
+  alias CadeauPlatform.Inventory.{Product, Category, Tax, ProductTax}
 
 
   schema "products" do
@@ -11,6 +11,7 @@ defmodule CadeauPlatform.Inventory.Product do
     field :imported, :boolean, default: false
     field :image_link, :string
     belongs_to :category, Category
+    many_to_many :taxes, Tax, join_through: ProductTax
 
     timestamps()
   end

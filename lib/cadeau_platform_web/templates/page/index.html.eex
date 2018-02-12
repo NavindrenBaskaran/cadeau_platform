@@ -6,11 +6,12 @@
       <div class="w3-container w3-center">
         <label class="align-left" style="float:left;"> Description </label>
         <p style="clear:both;text-align:left;"><%= item.description %></p>
-        <label class="align-left" style="float:left;"> Imported </label>
-        <p style="clear:both;text-align:left;"><%= imported_product?(item) %> </p>
         <label class="align-left" style="float:left;"> Price </label>
         <p style="clear:both;text-align:left;"> <%= item.price_cents %> </p>
+        <%= if item.imported do %>
+        <p style="clear:both;text-align:left;"><%= imported_product?(item) %> </p>
+        <% end %>
       </div>
-      <button class="w3-button w3-block w3-blue" id= <%= item.id %> >Add To Cart</button>
+      <button class="w3-button w3-block w3-blue product" onclick="addToShoppingCart(this.id)" id= <%= item.id %>>Add To Cart</button>
     </div>
 <% end %>

@@ -12,9 +12,11 @@
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="<%= static_path(@conn, "/js/vendor.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+
   </head>
 
-  <body>
+  <body  onload="updateselectedItemsCount()">
     <div class="container">
       <%= if !!(get_flash(@conn, :info)) do %>
         <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
@@ -29,6 +31,11 @@
       <% else %>
         <%= link "Login", to: session_path(@conn, :create) %>
       <% end %>
+
+      <div>
+        <%= link "Shopping Cart", to: shopping_cart_path(@conn, :index) %>
+        <span id="itemCount"></span> items
+      </div>
 
       <main role="main">
         <%= render @view_module, @view_template, assigns %>

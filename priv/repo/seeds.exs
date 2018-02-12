@@ -13,6 +13,8 @@
 alias CadeauPlatform.Repo
 alias CadeauPlatform.Inventory.Product
 alias CadeauPlatform.Inventory.Category
+alias CadeauPlatform.Inventory.Tax
+alias CadeauPlatform.Inventory.ProductTax
 
 Repo.insert! %Category{
   id: 1,
@@ -39,6 +41,7 @@ Repo.insert! %Category{
 }
 
 Repo.insert! %Product{
+  id: 1,
   name: "Sapiens: A Brief History of Humankind",
   price_cents: 127002,
   description: "A Summer Reading Pick for President Barack Obama, Bill Gates, and Mark Zuckerberg",
@@ -48,6 +51,7 @@ Repo.insert! %Product{
 }
 
 Repo.insert! %Product{
+  id: 2,
   name: "Wonder",
   price_cents: 3624,
   description: "Auggie wants to be an ordinary ten-year-old. He does ordinary things - eating ice cream, playing on his Xbox. He feels ordinary - inside. But ordinary kids don't make other ordinary kids run away screaming in playgrounds.",
@@ -57,6 +61,7 @@ Repo.insert! %Product{
 }
 
 Repo.insert! %Product{
+  id: 3,
   name: "Blackmores Bio C 1000 30 Tablets",
   price_cents: 2610,
   description: "High potency vitamin C supplement, buffered with mineral ascorbates to make it gentle on the stomach.",
@@ -66,6 +71,7 @@ Repo.insert! %Product{
 }
 
 Repo.insert! %Product{
+  id: 4,
   name: "Bio-life Anti-FR + Selenium 100 + 30 Tablets",
   price_cents: 9302,
   description: "BiO-LiFE Anti FR + Selenium contains antioxidant, anti-Free Radical (FR) source of nutrient that combines beta-carotene, vitamin C, E, zinc, selenium and garlic.",
@@ -76,6 +82,7 @@ Repo.insert! %Product{
 
 
 Repo.insert! %Product{
+  id: 5,
   name: "Chocolate Truffle Delight Gift Box, 16 pc.",
   price_cents: 12000,
   description: "Delight friends and family with our new Truffles Delight collection featuring unique and intriguing flavors.",
@@ -85,6 +92,7 @@ Repo.insert! %Product{
 }
 
 Repo.insert! %Product{
+  id: 6,
   name: "Mint Dark Chocolate Bar, Pack of 24, 1.5 oz each",
   price_cents: 7199,
   description: "For baking and self-treating, our luscious Mint Dark Chocolate Small Bars hit the spot.",
@@ -94,6 +102,7 @@ Repo.insert! %Product{
 }
 
 Repo.insert! %Product{
+  id: 7,
   name: "JOIN LIFE",
   price_cents: 10000,
   description: "Basic Striped Polo Shirt",
@@ -103,10 +112,50 @@ Repo.insert! %Product{
 }
 
 Repo.insert! %Product{
+  id: 8,
   name: "Oversized Sweater With Hood",
   price_cents: 15000,
   description: "Basic Hoody",
   imported: false,
   image_link: "https://gloimg.zafcdn.com/zaful/pdm-product-pic/Clothing/2017/08/16/thumb-img/1505673026236652447.jpg",
   category_id: 4
+}
+
+Repo.insert! %Tax{
+  id: 1,
+  name: "Sales Tax",
+  tax_rate: 0.1
+}
+
+Repo.insert! %Tax{
+  id: 2,
+  name: "Import Tax",
+  tax_rate: 0.05
+}
+
+Repo.insert %ProductTax{
+  product_id: 7,
+  tax_id: 1
+}
+
+Repo.insert %ProductTax{
+  product_id: 8,
+  tax_id: 1
+}
+
+Repo.insert %ProductTax{
+  product_id: 1,
+  tax_id: 2
+}
+Repo.insert %ProductTax{
+  product_id: 3,
+  tax_id: 2
+}
+Repo.insert %ProductTax{
+  product_id: 5,
+  tax_id: 2
+}
+Repo.insert %ProductTax{
+  product_id: 7,
+  tax_id: 2
 }
