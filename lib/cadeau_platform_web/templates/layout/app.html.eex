@@ -32,7 +32,10 @@
         <%= link "Login", to: session_path(@conn, :create) %>
       <% end %>
 
-      <p> Shopping Chart  <span id="itemCount"> </span></p>
+      <div>
+        <%= link "Shopping Cart", to: shopping_cart_path(@conn, :index) %>
+        <span id="itemCount"></span> items
+      </div>
 
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
