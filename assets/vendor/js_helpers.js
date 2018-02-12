@@ -7,8 +7,7 @@ function addToShoppingCart(product_id){
   expires = "; expires=" + date.toUTCString();
 
   if (shopping_cart_cookie){
-    document.cookie = shopping_cart_cookie + "," + ( product_id || "")  + expires + "; path=/";
-
+    document.cookie = shopping_cart_cookie + ":" + ( product_id || "")  + expires + "; path=/";
   }else{
     document.cookie = "items" + "=" + ( product_id || "")  + expires + "; path=/";
   }
@@ -17,15 +16,18 @@ function addToShoppingCart(product_id){
 
 function updateselectedItemsCount(){
   var $itemCount = $("#itemCount");
-  $itemCount.html(selectedItems().length)
-
+  if (selectedItems()) {
+    $itemCount.html(selectedItems().length);
+  }else{
+    $itemCount.html(0);
+  }
 }
 
 function selectedItems(){
   var $itemCount = $("#itemCount");
   var shopping_cart_cookie = getShoppingCartCookies();
   if (shopping_cart_cookie){
-    var items = shopping_cart_cookie.split("=")[1].split(",")
+    var items = shopping_cart_cookie.split("=")[1].split(":")
     return Array.from(new Set(items))
   }else{
     []
