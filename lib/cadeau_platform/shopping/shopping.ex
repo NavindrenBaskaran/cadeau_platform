@@ -9,7 +9,8 @@ defmodule CadeauPlatform.Shopping do
   alias CadeauPlatform.Shopping.Cart
   alias CadeauPlatform.Shopping.CartProduct
   alias CadeauPlatform.Inventory.Product
-
+  alias CadeauPlatform.Shopping.Order
+  alias CadeauPlatform.Shopping.OrderLine
 
   def create_cart(attrs \\ %{}) do
     %Cart{}
