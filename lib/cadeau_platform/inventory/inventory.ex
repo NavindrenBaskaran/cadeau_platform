@@ -15,12 +15,4 @@ defmodule CadeauPlatform.Inventory do
     |> preload(:taxes)
     |> Repo.all
   end
-
-  def get_selected_products(selected_product_ids) do
-    Product
-    |> where([p], p.id in ^selected_product_ids)
-    |> preload(:category)
-    |> preload(:taxes)
-    |> Repo.all
-  end
 end
