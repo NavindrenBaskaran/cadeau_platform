@@ -2,7 +2,7 @@ defmodule CadeauPlatform.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
   alias CadeauPlatform.Accounts.User
-
+  alias CadeauPlatform.Shopping.Cart
 
   schema "users" do
     field :email, :string
@@ -10,7 +10,7 @@ defmodule CadeauPlatform.Accounts.User do
     field :password_digest, :string
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
-
+    has_one :cart, Cart
     timestamps()
   end
 
