@@ -24,7 +24,8 @@ defmodule CadeauPlatformWeb.Router do
     post "/login", SessionController , :create
     delete "/logout", SessionController , :delete
     resources "/shopping_cart", ShoppingCartController
-    post "shopping_cart/add", ShoppingCartController, :add
+    post "/shopping_cart/add", ShoppingCartController, :add
+    resources "/order", OrderController
   end
 
   # Other scopes may use custom stacks.
