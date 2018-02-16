@@ -39,3 +39,19 @@ function getShoppingCartCookies(){
   var shopping_cart_cookie = cookies_list.pop()
   return shopping_cart_cookie
 }
+
+function addItemToCart(product_id){
+  var csrf = $('input[name=csrf_token]')[0].value
+  $.ajax({
+    method: "POST",
+    url: "shopping_cart/add",
+    data: {product_id: product_id, _csrf_token: csrf}
+  }).done(function(msg){
+    var msg = JSON.parse(msg)
+    if (msg.status == 200){
+      alert("Item Added");
+    }else{
+      alert("Failed to Add Item")
+    }
+  });
+}

@@ -8,6 +8,7 @@ defmodule CadeauPlatformWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug CadeauPlatform.Plugs.CurrentUser
+    plug CadeauPlatform.Plugs.Cart
   end
 
   pipeline :api do
@@ -23,6 +24,7 @@ defmodule CadeauPlatformWeb.Router do
     post "/login", SessionController , :create
     delete "/logout", SessionController , :delete
     resources "/shopping_cart", ShoppingCartController
+    post "shopping_cart/add", ShoppingCartController, :add
   end
 
   # Other scopes may use custom stacks.

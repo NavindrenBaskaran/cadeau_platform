@@ -1,9 +1,11 @@
 <h2>Products</h2>
-
+<input type="text" name="csrf_token" hidden value=<%= Plug.CSRFProtection.get_csrf_token %>>
 <%= for item <- @items do %>
     <div class="w3-card-4  w3-center w3-margin-bottom">
       <img src=<%= item.image_link %> >
       <div class="w3-container w3-center">
+        <label class="align-left" style="float:left;"> Name </label>
+        <p style="clear:both;text-align:left;"><%= item.name %></p>
         <label class="align-left" style="float:left;"> Description </label>
         <p style="clear:both;text-align:left;"><%= item.description %></p>
         <label class="align-left" style="float:left;"> Price </label>
@@ -12,6 +14,6 @@
         <p style="clear:both;text-align:left;"><%= imported_product?(item) %> </p>
         <% end %>
       </div>
-      <button class="w3-button w3-block w3-blue product" onclick="addToShoppingCart(this.id)" id= <%= item.id %>>Add To Cart</button>
+      <button class="w3-button w3-block w3-blue product" onclick="addItemToCart(this.id)" id= <%= item.id %>>Add To Cart</button>
     </div>
 <% end %>
