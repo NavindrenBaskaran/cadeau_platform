@@ -1,6 +1,23 @@
-<%= Enum.map(@selected_products, fn(selected_product) -> %>
-  <div class="w3-margin-top">
-    <p> <%= selected_product.name %> <p>
-    <p> <%= selected_product.price_cents %> <p>
+<%= if Enum.count(@product_lines) > 0 do %>
+  <div class="align-left w3-margin-top">
+    <label > Total </label>
+    <label><%= total_cart_value(@product_lines) %></label>
   </div>
-<% end) %>
+
+  <%= Enum.map(@product_lines, fn(product_line) -> %>
+    <div class="w3-panel w3-border w3-margin-top">
+      <p> Name : <%= product_line.product.name %> <p>
+      <p> Price: <%=  shopping_line_product_price(product_line.product.price_cents, product_line.quantity) %> <p>
+      <p> Quantity : <%= product_line.quantity %> <p>
+    </div>
+  <% end) %>
+<% else %>
+  <div class="align-left w3-margin-top">
+    <label > Total </label>
+    <label><%= zero_money() %></label>
+  </div>
+
+  <div>
+    No Items In Your Shopping Cart
+  </div>
+<% end %>
