@@ -22,15 +22,26 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
-config :money,
-  default_currency: :MYR,
-  separator: ",",
-  delimeter: ".",
-  symbol: true,
-  symbol_on_right: false,
-  symbol_space: true
+config :ex_cldr,
+  default_locale: "en",
+  locales: ["fr", "en"],
+  gettext: MyApp.Gettext,
+  data_dir: "./priv/cldr",
+  precompile_number_formats: ["¤¤#,##0.##"],
+  precompile_transliterations: [{:latn, :arab}, {:thai, :latn}],
+  json_library: Poison
 
-
+config :ex_money,
+  exchange_rates_retrieve_every: 300_000,
+  api_module: Money.ExchangeRates.OpenExchangeRates,
+  callback_module: Money.ExchangeRates.Callback,
+  exchange_rates_cache_module: Money.ExchangeRates.Cache.Ets,
+  preload_historic_rates: nil,
+  retriever_options: nil,
+  log_failure: :warn,
+  log_info: :info,
+  log_success: nil,
+  json_library: Poison
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
