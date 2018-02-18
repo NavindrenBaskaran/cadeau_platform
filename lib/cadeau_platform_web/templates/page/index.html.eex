@@ -9,7 +9,7 @@
         <label class="align-left" style="float:left;"> Description </label>
         <p style="clear:both;text-align:left;"><%= item.description %></p>
         <label class="align-left" style="float:left;"> Price </label>
-        <p style="clear:both;text-align:left;"> <%= item.price_cents %> </p>
+        <p style="clear:both;text-align:left;"> <%= get_price(item) %> </p>
         <%= if item.imported do %>
         <p style="clear:both;text-align:left;"><%= imported_product?(item) %> </p>
         <% end %>

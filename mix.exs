@@ -7,7 +7,7 @@ defmodule CadeauPlatform.Mixfile do
       version: "0.0.1",
       elixir: "~> 1.4",
       elixirc_paths: elixirc_paths(Mix.env),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers,
+      compilers: [:phoenix, :gettext, :cldr] ++ Mix.compilers,
       start_permanent: Mix.env == :prod,
       aliases: aliases(),
       deps: deps()
@@ -19,7 +19,7 @@ defmodule CadeauPlatform.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {CadeauPlatform.Application, []},
+      mod: {CadeauPlatform.Application, [:ex_cldr]},
       extra_applications: [:logger, :runtime_tools]
     ]
   end
@@ -42,9 +42,11 @@ defmodule CadeauPlatform.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:comeonin, "~> 2.5"},
-      {:money, "~> 1.2.1"},
       {:ecto_enum, "~> 1.0"},
-      {:poison, "~> 3.1"}
+      {:ex_cldr, "~> 1.0"},
+      {:poison, "~> 3.1"},
+      {:ex_cldr_numbers, "~> 1.0"},
+      {:ex_money, "~> 1.0"}
     ]
   end
 

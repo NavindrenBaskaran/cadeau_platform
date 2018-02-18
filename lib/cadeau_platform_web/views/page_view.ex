@@ -9,4 +9,9 @@ defmodule CadeauPlatformWeb.PageView do
         -> ""
     end
   end
+
+  def get_price(item) do
+    {_ , money } = Money.to_string(item.price)
+    money
+  end
 end

@@ -1,0 +1,14 @@
+<%= if @authenticated do %>
+  <%= if Enum.count(@orders) > 0 do %>
+    <h2> My Orders </h2>
+    <%= Enum.map(@orders, fn(order) -> %>
+      <div>
+        <%= link "Order #{order.id}", to: order_path(@conn, :show, order.id) %>
+      </div>
+    <% end) %>
+  <% else %>
+    <p> No orders </p>
+  <% end %>
+<% else %>
+  <p> Log in to see your orders!
+<% end %>

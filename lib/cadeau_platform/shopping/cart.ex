@@ -15,6 +15,7 @@ defmodule CadeauPlatform.Shopping.Cart do
   def changeset(%Cart{} = cart, attrs) do
     cart
     |> cast(attrs, [:user_id])
-    |> validate_required([])
+    |> validate_required([:user_id])
+    |> unique_constraint(:user_id)
   end
 end

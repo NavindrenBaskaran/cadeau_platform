@@ -11,9 +11,9 @@ defmodule CadeauPlatformWeb.UserController do
 
   def create(conn, %{"user" => params}) do
     case Accounts.create_user(params) do
-      {:ok, changeset} ->
+      {:ok, user} ->
         conn
-         |> put_session(:current_user, changeset)
+         |> put_session(:current_user_id, user.id)
          |> redirect(to: page_path(conn, :index))
     {:error, changeset} ->
         conn
