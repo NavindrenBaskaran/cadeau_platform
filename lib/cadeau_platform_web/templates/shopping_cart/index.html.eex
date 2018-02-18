@@ -1,23 +1,32 @@
-<%= if Enum.count(@product_lines) > 0 do %>
-  <div class="align-left w3-margin-top">
-    <label > Total </label>
-    <label><%= total_cart_value(@product_lines) %></label>
-  </div>
-
-  <%= Enum.map(@product_lines, fn(product_line) -> %>
-    <div class="w3-panel w3-border w3-margin-top">
-      <p> Name : <%= product_line.product.name %> <p>
-      <p> Price: <%=  shopping_line_product_price(product_line.product.price_cents, product_line.quantity) %> <p>
-      <p> Quantity : <%= product_line.quantity %> <p>
+<%= if @authenticated do %>
+  <%= if Enum.count(@product_lines) > 0 do %>
+    <div class="align-left w3-margin-top">
+      <label > Total </label>
+      <label><%= total_cart_value(@product_lines) %></label>
     </div>
-  <% end) %>
-<% else %>
-  <div class="align-left w3-margin-top">
-    <label > Total </label>
-    <label><%= zero_money() %></label>
-  </div>
 
-  <div>
-    No Items In Your Shopping Cart
-  </div>
+    <%= Enum.map(@product_lines, fn(product_line) -> %>
+      <div class="w3-panel w3-border w3-margin-top">
+        <p> Name : <%= product_line.product.name %> <p>
+        <p> Price: <%=  shopping_line_product_price(product_line.product.price, product_line.quantity) %> <p>
+        <p> Quantity : <%= product_line.quantity %> <p>
+      </div>
+    <% end) %>
+
+    <%=  if @authenticated do %>
+      <%= link "Checkout", to: order_path(@conn, :create_order), method: :post, class: "btn btn-primary" %>
+    <% end %>
+
+  <% else %>
+    <div class="align-left w3-margin-top">
+      <label > Total </label>
+      <label><%= zero_money() %></label>
+    </div>
+
+    <div>
+      No Items In Your Shopping Cart
+    </div>
+  <% end %>
+<% else %>
+  <p> Login to view Your Shopping Cart </p>
 <% end %>

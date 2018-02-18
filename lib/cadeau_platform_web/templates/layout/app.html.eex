@@ -16,7 +16,7 @@
 
   </head>
 
-  <body  onload="updateselectedItemsCount()">
+  <body>
     <div class="container">
       <%= if !!(get_flash(@conn, :info)) do %>
         <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
@@ -26,16 +26,23 @@
         <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
       <% end %>
 
-      <%= if @user do %>
+      <%= if @user_id do %>
         <%= link "Logout", to: session_path(@conn, :delete), method: :delete %>
       <% else %>
         <%= link "Login", to: session_path(@conn, :create) %>
       <% end %>
 
-      <div>
-        <%= link "Shopping Cart", to: shopping_cart_path(@conn, :index) %>
-        <span id="itemCount"></span> items
-      </div>
+      <%= if @user_id && !Kernel.is_nil(@cart_id) do %>
+        <div>
+          <%= link "Shopping Cart", to: shopping_cart_path(@conn, :index) %>
+        </div>
+      <% end %>
+
+      <%= if @user_id do %>
+        <div>
+          <%= link "View My Orders", to: order_path(@conn, :index) %>
+        </div>
+      <% end %>
 
       <main role="main">
         <%= render @view_module, @view_template, assigns %>

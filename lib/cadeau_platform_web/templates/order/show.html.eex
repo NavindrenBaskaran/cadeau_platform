@@ -1,0 +1,30 @@
+<%= if Enum.count(@purchase_data) > 0 do %>
+ <h2> Order Details </h2>
+
+ <%= Enum.map(@purchase_data, fn(purchase_datum) -> %>
+   <div class="w3-panel w3-border w3-margin-top">
+     <p> Name : <%= purchase_datum["name"] %> </p>
+     <p> Quantity : <%= purchase_datum["quantity"] %> </p>
+     <p> Unit Price: <%= format_money(purchase_datum["product_price"], purchase_datum["currency"]) %></p>
+     <p> Tax Rate: <%= format_tax_rate(purchase_datum["total_tax_rate"]) %> %</p>
+     <p> Price without Sales Tax: <%= format_money(purchase_datum["total"], purchase_datum["currency"]) %> </p>
+     <p> Sales Tax: <%= format_money(purchase_datum["sales_tax"], purchase_datum["currency"]) %> </p>
+     <p> Price with Sales Tax: <%= format_money(purchase_datum["total_with_sales_tax"], purchase_datum["currency"]) %> </p>
+   </div>
+ <% end) %>
+
+ <div class="align-left w3-margin-top">
+   <label > Sales Tax  </label>
+   <label><%= money_to_string(@total_sales_tax) %></label>
+ </div>
+
+ <div class="align-left w3-margin-top">
+   <label > Total </label>
+   <label><%= money_to_string(@total_amount) %></label>
+ </div>
+
+<% else %>
+  <div class="align-left w3-margin-top">
+    <p> Nothing to show </p>
+  </div>
+<% end %>

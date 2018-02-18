@@ -6,7 +6,7 @@ defmodule CadeauPlatform.Inventory.Product do
 
   schema "products" do
     field :name, :string
-    field :price_cents, Money.Ecto.Type
+    field :price, Money.Ecto.Composite.Type
     field :description, :string
     field :imported, :boolean, default: false
     field :image_link, :string
@@ -19,7 +19,7 @@ defmodule CadeauPlatform.Inventory.Product do
   @doc false
   def changeset(%Product{} = product, attrs) do
     product
-    |> cast(attrs, [:name, :price_cents, :description, :imported, :image_link, :category_id])
-    |> validate_required([:name, :price_cents, :description, :image_link])
+    |> cast(attrs, [:name, :price, :description, :imported, :image_link, :category_id])
+    |> validate_required([:name, :price, :description, :image_link])
   end
 end

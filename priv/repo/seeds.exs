@@ -43,7 +43,7 @@ Repo.insert! %Category{
 Repo.insert! %Product{
   id: 1,
   name: "Sapiens: A Brief History of Humankind",
-  price_cents: 127002,
+  price: Money.new(:MYR, 100),
   description: "A Summer Reading Pick for President Barack Obama, Bill Gates, and Mark Zuckerberg",
   imported: true,
   image_link: "https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/lrg/9780/0623/9780062316097.jpg",
@@ -53,7 +53,7 @@ Repo.insert! %Product{
 Repo.insert! %Product{
   id: 2,
   name: "Wonder",
-  price_cents: 3624,
+  price: Money.new(:MYR, 12.49),
   description: "Auggie wants to be an ordinary ten-year-old. He does ordinary things - eating ice cream, playing on his Xbox. He feels ordinary - inside. But ordinary kids don't make other ordinary kids run away screaming in playgrounds.",
   imported: false,
   image_link: "https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/lrg/9780/5525/9780552565974.jpg",
@@ -63,7 +63,7 @@ Repo.insert! %Product{
 Repo.insert! %Product{
   id: 3,
   name: "Blackmores Bio C 1000 30 Tablets",
-  price_cents: 2610,
+  price: Money.new(:MYR, 300),
   description: "High potency vitamin C supplement, buffered with mineral ascorbates to make it gentle on the stomach.",
   imported: true,
   image_link: "https://citycareonline.com.my/1762-large_default/blackmores-bio-c-1000-30-tablets.jpg",
@@ -73,7 +73,7 @@ Repo.insert! %Product{
 Repo.insert! %Product{
   id: 4,
   name: "Bio-life Anti-FR + Selenium 100 + 30 Tablets",
-  price_cents: 9302,
+  price: Money.new(:MYR, 400),
   description: "BiO-LiFE Anti FR + Selenium contains antioxidant, anti-Free Radical (FR) source of nutrient that combines beta-carotene, vitamin C, E, zinc, selenium and garlic.",
   imported: false,
   image_link: "https://citycareonline.com.my/3078-large_default/bio-life-anti-fr-selenium-100-30-tablets.jpg",
@@ -84,7 +84,7 @@ Repo.insert! %Product{
 Repo.insert! %Product{
   id: 5,
   name: "Chocolate Truffle Delight Gift Box, 16 pc.",
-  price_cents: 12000,
+  price: Money.new(:MYR, 150),
   description: "Delight friends and family with our new Truffles Delight collection featuring unique and intriguing flavors.",
   imported: true,
   image_link: "http://images.godiva.com/is/image/godiva/chocolate-truffles-delight-gift-box~~12380-2?$plp$",
@@ -94,7 +94,7 @@ Repo.insert! %Product{
 Repo.insert! %Product{
   id: 6,
   name: "Mint Dark Chocolate Bar, Pack of 24, 1.5 oz each",
-  price_cents: 7199,
+  price: Money.new(:MYR, 0.85),
   description: "For baking and self-treating, our luscious Mint Dark Chocolate Small Bars hit the spot.",
   imported: false,
   image_link: "http://images.godiva.com/is/image/godiva/dark-chocolate-bar~~27990-1",
@@ -104,7 +104,7 @@ Repo.insert! %Product{
 Repo.insert! %Product{
   id: 7,
   name: "JOIN LIFE",
-  price_cents: 10000,
+  price: Money.new(:MYR, 110),
   description: "Basic Striped Polo Shirt",
   imported: true,
   image_link: "https://imagena1.lacoste.com/dw/image/v2/AAUP_PRD/on/demandware.static/-/Sites-master/default/dw1cee1729/PH2029_HHW_24.jpg?sw=460&sh=460&sm=fit",
@@ -114,7 +114,7 @@ Repo.insert! %Product{
 Repo.insert! %Product{
   id: 8,
   name: "Oversized Sweater With Hood",
-  price_cents: 15000,
+  price: Money.new(:MYR, 14.99),
   description: "Basic Hoody",
   imported: false,
   image_link: "https://gloimg.zafcdn.com/zaful/pdm-product-pic/Clothing/2017/08/16/thumb-img/1505673026236652447.jpg",

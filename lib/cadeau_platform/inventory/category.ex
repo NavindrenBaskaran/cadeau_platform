@@ -6,7 +6,6 @@ defmodule CadeauPlatform.Inventory.Category do
   import Ecto.Changeset
   alias CadeauPlatform.Inventory.{Category, Product}
 
-
   schema "categories" do
     field :name, :string
     field :type, CategoryTypeEnum

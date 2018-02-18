@@ -26,6 +26,7 @@ defmodule CadeauPlatformWeb.Router do
     resources "/shopping_cart", ShoppingCartController
     post "/shopping_cart/add", ShoppingCartController, :add
     resources "/order", OrderController
+    post "/order/create_order", OrderController, :create_order
   end
 
   # Other scopes may use custom stacks.

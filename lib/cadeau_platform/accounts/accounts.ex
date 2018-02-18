@@ -28,7 +28,7 @@ defmodule CadeauPlatform.Accounts do
       nil ->
         false
       _ ->
-        { Comeonin.Bcrypt.checkpw(password, user.password_digest), user }
+        { Comeonin.Bcrypt.checkpw(password, user.password_digest), user.id }
     end
   end
 

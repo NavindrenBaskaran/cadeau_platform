@@ -6,14 +6,14 @@ defmodule CadeauPlatform.Plugs.CurrentUser do
   end
 
   def call(conn, _opts) do
-    case Conn.get_session(conn, :current_user) do
+    case Conn.get_session(conn, :current_user_id) do
       nil ->
         conn
-         |> Conn.assign(:user, false)
+         |> Conn.assign(:user_id, false)
          |> Conn.assign(:authenticated, :false)
-      user ->
+      user_id ->
         conn
-         |> Conn.assign(:user, user)
+         |> Conn.assign(:user_id, user_id)
          |> Conn.assign(:authenticated, true)
     end
   end

@@ -8,14 +8,32 @@ defmodule CadeauPlatform.Plugs.Cart do
   end
 
   def call(conn, _opts) do
-    case get_session(conn, :cart) do
-      nil ->
-        {_ , cart} = Shopping.create_cart()
-        conn = conn |> put_session(:cart, cart.id)
-        assign(conn, :cart, cart)
+    with true <- conn.assigns.authenticated,
+         true <- Kernel.is_nil(get_session(conn, :cart_id))
+    do
+      get_cart(conn)
+    else
       _ ->
-        cart = Shopping.get_cart(get_session(conn, :cart))
-        assign(conn, :cart, cart.id)
+        assign(conn, :cart_id, get_session(conn, :cart_id))
     end
+  end
+
+  defp get_cart(conn) do
+    case  Kernel.is_nil(Shopping.get_cart_by_user_id(conn.assigns.user_id)) do
+      true ->
+        create_cart(conn)
+      false ->
+        cart = Shopping.get_cart_by_user_id(conn.assigns.user_id)
+        conn
+        |> put_session(:cart_id, cart.id)
+        |> assign(:cart_id, cart.id)
+    end
+  end
+
+  defp create_cart(conn) do
+    {_ , cart} = Shopping.create_cart(%{user_id: conn.assigns.user_id})
+    conn
+    |> put_session(:cart_id, cart.id)
+    |> assign(:cart_id, cart.id)
   end
 end

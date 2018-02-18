@@ -6,16 +6,20 @@ defmodule CadeauPlatform.Shopping do
   import Ecto.Query, warn: false
   alias CadeauPlatform.Repo
 
-  alias CadeauPlatform.Shopping.Cart
-  alias CadeauPlatform.Shopping.CartProduct
   alias CadeauPlatform.Inventory.Product
-  alias CadeauPlatform.Shopping.Order
-  alias CadeauPlatform.Shopping.OrderLine
+  alias CadeauPlatform.Shopping.{Cart, CartProduct, Order, Receipt}
+  alias CadeauPlatform.CheckoutCalculator.{OrderAmountCalculator, SalesTaxCalculator}
+
 
   def create_cart(attrs \\ %{}) do
     %Cart{}
     |> Cart.changeset(attrs)
     |> Repo.insert()
+  end
+
+  def get_cart_by_user_id(user_id) do
+    Cart
+    |> Repo.get_by(user_id: user_id)
   end
 
   def get_cart(id) do
@@ -25,11 +29,11 @@ defmodule CadeauPlatform.Shopping do
 
   def get_products_in_cart(id) do
     query = from cp in CartProduct,
-            where: cp.cart_id == ^id
+            where: cp.cart_id == ^id and cp.status == ^:in_cart
 
     query
     |> Repo.all
-    |> Repo.preload(:product)
+    |> Repo.preload(product: :taxes)
   end
 
   def add_product_to_cart(attrs) do
@@ -43,23 +47,22 @@ defmodule CadeauPlatform.Shopping do
     end
   end
 
-  def update_product_quantity(shopping_cart_id, product_id, quantity) do
-
+  def link_user_to_cart(cart, user_id) do
+    changeset = Cart.changeset(cart, %{user_id: user_id})
+    Repo.update(changeset)
   end
 
-  def remove_product_from_cart(shopping_cart_id, product_id) do
-
-  end
-
-  def product_exist_in_cart?(product_id, cart_id) do
-    query = from cp in CartProduct,
-            where: cp.cart_id == ^cart_id and cp.product_id == ^product_id
-    Repo.all(query)
-  end
-
-  def update_quantity(product_line, quantity) do
+  defp update_quantity(product_line, quantity) do
     quantity = product_line.quantity + quantity
     changeset = CartProduct.changeset(product_line, %{quantity: quantity})
     Repo.update(changeset)
+  end
+
+  defp product_exist_in_cart?(product_id, cart_id) do
+    query = from cp in CartProduct,
+            where: cp.cart_id == ^cart_id and
+                   cp.status == ^:in_cart and
+                   cp.product_id == ^product_id
+    Repo.all(query)
   end
 end
