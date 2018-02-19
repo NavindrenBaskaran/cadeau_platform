@@ -1,7 +1,6 @@
 defmodule CadeauPlatformWeb.ShoppingCartController do
   use CadeauPlatformWeb, :controller
 
-  alias Plug.Conn
   alias CadeauPlatform.Shopping
 
   def index(conn, _params) do
@@ -9,7 +8,7 @@ defmodule CadeauPlatformWeb.ShoppingCartController do
                       true ->
                           []
                       false ->
-                        product_lines = Shopping.get_products_in_cart(conn.assigns.user_id, conn.assigns.cart_id)
+                        Shopping.get_products_in_cart(conn.assigns.user_id, conn.assigns.cart_id)
                     end
     conn
     |> assign(:product_lines, product_lines)
@@ -23,7 +22,7 @@ defmodule CadeauPlatformWeb.ShoppingCartController do
     do
       json conn, Poison.encode!(%{"status": 200})
     else
-      {:error, changeset} ->
+      {:error, _} ->
         json conn, Poison.encode!(%{"status": 500})
       _ ->
         json conn, Poison.encode!(%{"status": 400})

@@ -6,10 +6,7 @@ defmodule CadeauPlatform.Shopping do
   import Ecto.Query, warn: false
   alias CadeauPlatform.Repo
 
-  alias CadeauPlatform.Inventory.Product
-  alias CadeauPlatform.Shopping.{Cart, CartProduct, Order, Receipt}
-  alias CadeauPlatform.CheckoutCalculator.{OrderAmountCalculator, SalesTaxCalculator}
-
+  alias CadeauPlatform.Shopping.{Cart, CartProduct}
 
   def create_cart(attrs \\ %{}) do
     %Cart{}
