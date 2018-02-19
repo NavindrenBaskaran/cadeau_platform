@@ -23,39 +23,35 @@ defmodule CadeauPlatform.Checkout do
   end
 
   def process_order(user_id, cart_id) do
-    case create_order(%{user_id: user_id}) do
-      {:ok, order} ->
-        Repo.transaction(fn ->
-          checkout_products_in_cart(cart_id, order.id)
-          order = Repo.preload(order, product_lines: [product: :taxes])
-          order
-          |> create_receipt
-          |> create_receipt_detail(order.product_lines)
-          order
-        end)
-      {:error, _} ->
-        nil
-    end
+    Repo.transaction(fn ->
+      order = create_order(%{user_id: user_id})
+      checkout_products_in_cart(cart_id, order.id)
+      order = Repo.preload(order, product_lines: [product: :taxes])
+      order
+      |> create_receipt
+      |> create_receipt_detail(order.product_lines)
+      order
+    end)
   end
 
   defp create_order(attrs) do
     %Order{}
     |> Order.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert!()
   end
 
   defp create_receipt(order) do
     {total_amount, total_sales_tax} = receipt_params(order.product_lines)
     %Receipt{}
     |> Receipt.changeset(%{total_amount: total_amount, total_sales_tax:  total_sales_tax, order_id: order.id})
-    |> Repo.insert()
+    |> Repo.insert!()
   end
 
-  defp create_receipt_detail({_, receipt}, product_lines) do
+  defp create_receipt_detail(receipt, product_lines) do
     purchase_data = receipt_detail(product_lines)
     %ReceiptDetail{}
     |> ReceiptDetail.changeset(%{receipt_id: receipt.id, purchase_data: purchase_data})
-    |> Repo.insert()
+    |> Repo.insert!()
   end
 
   defp receipt_params(product_lines) do

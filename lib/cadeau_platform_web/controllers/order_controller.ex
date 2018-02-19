@@ -32,7 +32,9 @@ defmodule CadeauPlatformWeb.OrderController do
   def show(conn, %{"id" => id}) do
     case Checkout.get_order(conn.assigns.user_id, id) do
       nil ->
-        nil
+        conn
+        |> put_flash(:error, "Uh-oh, apparently this order does not exist.")
+        |> redirect(to: order_path(conn, :index))
       order ->
         conn
         |> assign(:purchase_data, order.receipt.receipt_detail.purchase_data)

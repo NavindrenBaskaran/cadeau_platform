@@ -2,7 +2,7 @@ defmodule CadeauPlatform.Checkout.Order do
   use Ecto.Schema
   import Ecto.Changeset
   alias CadeauPlatform.Checkout.{Order, Receipt}
-  alias CadeauPlatform.Account.User
+  alias CadeauPlatform.Accounts.User
   alias CadeauPlatform.Inventory.Product
   alias CadeauPlatform.Shopping.CartProduct
 

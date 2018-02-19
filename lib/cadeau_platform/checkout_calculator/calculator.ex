@@ -34,7 +34,7 @@ defmodule CadeauPlatform.CheckoutCalculator.Calculator do
       total_sales_tax = Money.mult!(total, tax_rate)
       total_sales_tax_amount_rounded = round_tax_amount(total_sales_tax)
       total_with_sales_tax = Money.add!(total, total_sales_tax_amount_rounded)
-      
+
       %{name: product_line.product.name, quantity: quantity, product_price: Money.to_decimal(product_line.product.price), total_tax_rate: tax_rate, total: Money.to_decimal(total), sales_tax: Money.to_decimal(total_sales_tax_amount_rounded), total_with_sales_tax: Money.to_decimal(total_with_sales_tax), currency: "MYR"}
     end)
   end

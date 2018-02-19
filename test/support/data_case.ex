@@ -22,6 +22,7 @@ defmodule CadeauPlatform.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import CadeauPlatform.DataCase
+      import CadeauPlatform.Factory
     end
   end
 

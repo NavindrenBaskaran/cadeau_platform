@@ -3,31 +3,28 @@ defmodule CadeauPlatformWeb.ShoppingCartController do
 
   alias Plug.Conn
   alias CadeauPlatform.Shopping
-  import CadeauPlatform.Helpers.HelperFunctions
 
   def index(conn, _params) do
     product_lines = case Kernel.is_nil(conn.assigns.cart_id) do
                       true ->
                           []
                       false ->
-                        product_lines = Shopping.get_products_in_cart(conn.assigns.cart_id)
+                        product_lines = Shopping.get_products_in_cart(conn.assigns.user_id, conn.assigns.cart_id)
                     end
     conn
     |> assign(:product_lines, product_lines)
     |> render("index.html", conn.assigns)
   end
 
-  def add(conn, params) do
-    sanitized_params = string_to_atom(params)
-    whitelisted_params = Map.take(sanitized_params, [:product_id])
-    attrs = Map.put(whitelisted_params, :cart_id, conn.assigns.cart_id )
-
+  def add(conn, %{"_csrf_token" => _ , "product_id" => product_id}) do
     with true <- conn.assigns.authenticated,
          false <- Kernel.is_nil(conn.assigns.cart_id),
-         {:ok, _} <- Shopping.add_product_to_cart(attrs)
+         {:ok, _} <- Shopping.add_product_to_cart(%{cart_id: conn.assigns.cart_id, product_id: product_id})
     do
       json conn, Poison.encode!(%{"status": 200})
     else
+      {:error, changeset} ->
+        json conn, Poison.encode!(%{"status": 500})
       _ ->
         json conn, Poison.encode!(%{"status": 400})
     end

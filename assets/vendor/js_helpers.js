@@ -8,7 +8,9 @@ function addItemToCart(product_id){
     var msg = JSON.parse(msg)
     if (msg.status == 200){
       alert("Item Added");
-    }else{
+    }else if(msg.status == 500){
+      alert("Something went wrong.")
+    }else {
       alert("Should Login First.")
     }
   });
