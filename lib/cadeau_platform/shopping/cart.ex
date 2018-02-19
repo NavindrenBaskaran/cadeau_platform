@@ -17,5 +17,6 @@ defmodule CadeauPlatform.Shopping.Cart do
     |> cast(attrs, [:user_id])
     |> validate_required([:user_id])
     |> unique_constraint(:user_id)
+    |> foreign_key_constraint(:user_id)
   end
 end

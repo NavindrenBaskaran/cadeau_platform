@@ -20,6 +20,7 @@ defmodule CadeauPlatformWeb.ConnCase do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
       import CadeauPlatformWeb.Router.Helpers
+      import CadeauPlatform.Factory
 
       # The default endpoint for testing
       @endpoint CadeauPlatformWeb.Endpoint

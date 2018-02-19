@@ -23,5 +23,6 @@ defmodule CadeauPlatform.Shopping.CartProduct do
     cart_product
     |> Ecto.Changeset.cast(attrs, [:cart_id, :product_id, :quantity, :status])
     |> validate_required([:cart_id, :product_id, :status])
+    |> foreign_key_constraint(:product_id)
   end
 end

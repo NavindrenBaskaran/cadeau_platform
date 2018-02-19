@@ -46,7 +46,8 @@ defmodule CadeauPlatform.Mixfile do
       {:ex_cldr, "~> 1.0"},
       {:poison, "~> 3.1"},
       {:ex_cldr_numbers, "~> 1.0"},
-      {:ex_money, "~> 1.0"}
+      {:ex_money, "~> 1.0"},
+      {:ex_machina, "~> 2.1"}
     ]
   end
 

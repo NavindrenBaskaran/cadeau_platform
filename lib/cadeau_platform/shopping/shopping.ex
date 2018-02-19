@@ -27,9 +27,12 @@ defmodule CadeauPlatform.Shopping do
     |> Repo.get(id)
   end
 
-  def get_products_in_cart(id) do
+  def get_products_in_cart(user_id, id) do
     query = from cp in CartProduct,
-            where: cp.cart_id == ^id and cp.status == ^:in_cart
+            join: c in Cart, on: c.id == cp.cart_id,
+            where: c.user_id == ^user_id and
+                   cp.cart_id == ^id and
+                   cp.status == ^:in_cart
 
     query
     |> Repo.all
@@ -45,11 +48,6 @@ defmodule CadeauPlatform.Shopping do
       [product_line] ->
         update_quantity(product_line, 1)
     end
-  end
-
-  def link_user_to_cart(cart, user_id) do
-    changeset = Cart.changeset(cart, %{user_id: user_id})
-    Repo.update(changeset)
   end
 
   defp update_quantity(product_line, quantity) do

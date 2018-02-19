@@ -3,7 +3,6 @@ defmodule CadeauPlatform.Inventory.Tax do
   import Ecto.Changeset
   alias CadeauPlatform.Inventory.{Tax, Product, ProductTax}
 
-
   schema "taxes" do
     field :name, :string
     field :tax_rate, :decimal, default: 0.0

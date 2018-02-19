@@ -6,116 +6,41 @@ defmodule CadeauPlatform.CheckoutTest do
   describe "orders" do
     alias CadeauPlatform.Checkout.Order
 
-    @valid_attrs %{}
-    @update_attrs %{}
-    @invalid_attrs %{}
+    test "get_orders/1, returns order beloging to the user" do
+      user = insert(:user)
+      user2 = insert(:user, email: "test@gmail.com", name: "test")
 
-    def order_fixture(attrs \\ %{}) do
-      {:ok, order} =
-        attrs
-        |> Enum.into(@valid_attrs)
-        |> Checkout.create_order()
+      order1 = insert(:order, user: user)
+      order2 = insert(:order, user: user)
+      order3 = insert(:order, user: user2)
 
-      order
+
+      assert 2 == Enum.count(Checkout.get_orders(user.id))
+      assert 1 == Enum.count(Checkout.get_orders(user2.id))
     end
 
-    test "list_orders/0 returns all orders" do
-      order = order_fixture()
-      assert Checkout.list_orders() == [order]
+    test "get_order/2, returns order beloging to the user" do
+      user = insert(:user)
+      user2 = insert(:user, email: "test@gmail.com", name: "test")
+
+      order1 = insert(:order, user: user)
+
+      assert order1.id == Checkout.get_order(user.id, order1.id).id
     end
 
-    test "get_order!/1 returns the order with given id" do
-      order = order_fixture()
-      assert Checkout.get_order!(order.id) == order
-    end
+    test "process_order/2, creates order, checkouts item from cart, creates receipt and receipt detail" do
+      user = insert(:user)
+      cart = insert(:cart, user: user)
+      product = insert(:product)
+      cart_product = insert(:cart_product, cart: cart, product: product)
 
-    test "create_order/1 with valid data creates a order" do
-      assert {:ok, %Order{} = order} = Checkout.create_order(@valid_attrs)
-    end
+      { _, order } = Checkout.process_order(user.id, cart.id)
+      order = order |> Repo.preload([product_lines: :product, receipt: :receipt_detail])
 
-    test "create_order/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Checkout.create_order(@invalid_attrs)
-    end
-
-    test "update_order/2 with valid data updates the order" do
-      order = order_fixture()
-      assert {:ok, order} = Checkout.update_order(order, @update_attrs)
-      assert %Order{} = order
-    end
-
-    test "update_order/2 with invalid data returns error changeset" do
-      order = order_fixture()
-      assert {:error, %Ecto.Changeset{}} = Checkout.update_order(order, @invalid_attrs)
-      assert order == Checkout.get_order!(order.id)
-    end
-
-    test "delete_order/1 deletes the order" do
-      order = order_fixture()
-      assert {:ok, %Order{}} = Checkout.delete_order(order)
-      assert_raise Ecto.NoResultsError, fn -> Checkout.get_order!(order.id) end
-    end
-
-    test "change_order/1 returns a order changeset" do
-      order = order_fixture()
-      assert %Ecto.Changeset{} = Checkout.change_order(order)
-    end
-  end
-
-  describe "receipt_details" do
-    alias CadeauPlatform.Checkout.ReceiptDetail
-
-    @valid_attrs %{}
-    @update_attrs %{}
-    @invalid_attrs %{}
-
-    def receipt_detail_fixture(attrs \\ %{}) do
-      {:ok, receipt_detail} =
-        attrs
-        |> Enum.into(@valid_attrs)
-        |> Checkout.create_receipt_detail()
-
-      receipt_detail
-    end
-
-    test "list_receipt_details/0 returns all receipt_details" do
-      receipt_detail = receipt_detail_fixture()
-      assert Checkout.list_receipt_details() == [receipt_detail]
-    end
-
-    test "get_receipt_detail!/1 returns the receipt_detail with given id" do
-      receipt_detail = receipt_detail_fixture()
-      assert Checkout.get_receipt_detail!(receipt_detail.id) == receipt_detail
-    end
-
-    test "create_receipt_detail/1 with valid data creates a receipt_detail" do
-      assert {:ok, %ReceiptDetail{} = receipt_detail} = Checkout.create_receipt_detail(@valid_attrs)
-    end
-
-    test "create_receipt_detail/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Checkout.create_receipt_detail(@invalid_attrs)
-    end
-
-    test "update_receipt_detail/2 with valid data updates the receipt_detail" do
-      receipt_detail = receipt_detail_fixture()
-      assert {:ok, receipt_detail} = Checkout.update_receipt_detail(receipt_detail, @update_attrs)
-      assert %ReceiptDetail{} = receipt_detail
-    end
-
-    test "update_receipt_detail/2 with invalid data returns error changeset" do
-      receipt_detail = receipt_detail_fixture()
-      assert {:error, %Ecto.Changeset{}} = Checkout.update_receipt_detail(receipt_detail, @invalid_attrs)
-      assert receipt_detail == Checkout.get_receipt_detail!(receipt_detail.id)
-    end
-
-    test "delete_receipt_detail/1 deletes the receipt_detail" do
-      receipt_detail = receipt_detail_fixture()
-      assert {:ok, %ReceiptDetail{}} = Checkout.delete_receipt_detail(receipt_detail)
-      assert_raise Ecto.NoResultsError, fn -> Checkout.get_receipt_detail!(receipt_detail.id) end
-    end
-
-    test "change_receipt_detail/1 returns a receipt_detail changeset" do
-      receipt_detail = receipt_detail_fixture()
-      assert %Ecto.Changeset{} = Checkout.change_receipt_detail(receipt_detail)
+      assert Enum.map(order.product_lines, fn(product_line) -> product_line.product.id end) == [product.id]
+      assert Enum.map(order.product_lines, fn(product_line) -> product_line.status end) == [:checked_out]
+      assert order.receipt.order_id == order.id
+      assert Enum.count(order.receipt.receipt_detail.purchase_data) == 1
     end
   end
 end
