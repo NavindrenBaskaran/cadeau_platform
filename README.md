@@ -20,6 +20,11 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
 
+## Limitations
+* There are no dropdown, to select quantity of item to be purchased. To increase quantity, just click "Add to Cart" button `x` number of times to
+  add `x` quantity of the product to your cart.
+* Did not implement remove from cart feature.
+
 ## Learn more
 
   * Official website: http://www.phoenixframework.org/
