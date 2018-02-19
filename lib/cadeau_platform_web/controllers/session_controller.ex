@@ -7,7 +7,7 @@ defmodule CadeauPlatformWeb.SessionController do
     case get_session(conn, :current_user_id) do
       nil ->
         render(conn, "new.html")
-      user ->
+      _ ->
         redirect(conn, to: page_path(conn, :index))
     end
   end
@@ -16,7 +16,7 @@ defmodule CadeauPlatformWeb.SessionController do
     case Accounts.authenticate_user(params) do
       { true, user_id } ->
         redirect(login(conn, user_id), to: page_path(conn, :index))
-      { false , user_id} ->
+      { false , _} ->
         conn
         |> put_flash(:error, "Invalid Credentials")
         |> render("new.html")

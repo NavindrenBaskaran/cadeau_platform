@@ -32,6 +32,10 @@
         <%= link "Login", to: session_path(@conn, :create) %>
       <% end %>
 
+      <div>
+        <%= link "View Products", to: page_path(@conn, :index) %>
+      </div>
+
       <%= if @user_id && !Kernel.is_nil(@cart_id) do %>
         <div>
           <%= link "Shopping Cart", to: shopping_cart_path(@conn, :index) %>

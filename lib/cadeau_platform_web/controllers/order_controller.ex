@@ -2,8 +2,7 @@ defmodule CadeauPlatformWeb.OrderController do
   use CadeauPlatformWeb, :controller
 
   alias CadeauPlatform.Checkout
-  alias CadeauPlatform.Checkout.Order
-
+  
   def index(conn, _params) do
     orders = case conn.assigns.authenticated do
               false ->
